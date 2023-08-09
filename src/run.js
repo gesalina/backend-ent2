@@ -1,8 +1,16 @@
+/**
+*  Routers
+*/
 import productRouter from "../src/api/routers/products/product.router.js";
 import cartRouter from "../src/api/routers/carts/cart.router.js";
 import viewRouter from "../src/api/routers/main/view.router.js";
 import chatRouter from "../src/api/routers/chat/chat.router.js";
 import sessionRouter from "../src/api/routers/login/session.router.js";
+
+/**
+*  Tools
+*/
+/** import {passportCall, handlePolicies} from "./utils.js" */
 
 /**
  * Run the socket and the app
@@ -16,11 +24,16 @@ const run = (io, app) => {
   /**
    * API routes
    */
-
   app.use("/api/products", productRouter);
   app.use("/api/carts", cartRouter);
   app.use("/api/chat", chatRouter);
   app.use("/session", sessionRouter);
+
+  /**
+  * New routes [NOT ADDED]
+  *
+  * app.use("/products", passportCall("jwt"), handlePolicies(["ADMIN"], productViewRouter);
+  */
 
   /**
    * Main view route
