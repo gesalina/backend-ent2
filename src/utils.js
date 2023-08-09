@@ -37,3 +37,17 @@ export const passportCall = strategy => {
         })(request, response, next)
     }
 }
+/**
+* Handle policies [UNTESTED]
+*
+export const handlePolicies = policies => (request, response, next) => {
+    const user = request.user.user || null;
+    const adminRole = "ADMIN";
+    if(policies.includes(adminRole)){
+        if(user.role !== adminRole){
+            return response.status(403).render('errors/base', { error: 'You dont have admin privileges'});
+        }
+    }
+    return next()
+}
+*/
