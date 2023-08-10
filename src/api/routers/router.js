@@ -6,6 +6,9 @@ export default class routeHandler {
     this.router = Router()
     this.init()
   }
+  /**
+  *  Initializate the inherited classes
+  */
   init(){}
   
   getRouter(){
@@ -26,7 +29,9 @@ export default class routeHandler {
   delete(path, ...callbacks){
     this.router.delete(path, this.generateCustomResponses, this.applyCallbacks(callbacks))
   }
-
+  /**
+  *  Map the callbacks to handle the intern functions
+  */
   applyCallbacks(callbacks){
     return callbacks.map(callback => async(...params) => {
       try{
@@ -37,12 +42,19 @@ export default class routeHandler {
       }
     })
   }
+  /**
+  *  Generate custom response to the object response
+  */
   generateCustomResponses = (request, response, next) => {
     response.sendSuccess = payload => response.send({status: 'success', payload});
     response.sendServerError = error => response.status(500).send({status: 'error', error});
     response.sendUserError = error => response.status(400).send({status: 'error', error});
     next();
   }
+  /**
+  *  Handle the policies,
+  *  validate the users rights
+  */
   handlePolicies = policies => (request, response, next) => {
     const authHeaders = request.headers.authorization;
     if(policies[0] === "PUBLIC") return next();
